@@ -7,6 +7,9 @@
 #include <string>
 #include <chrono>
 #include <vector>
+#include <map>
+
+#define V 4
 
 using std::vector;
 using std::string;
@@ -25,7 +28,7 @@ class Algorithm {
         /*
         * Run Algorithm till Limit reached
         */
-        virtual void run();
+        virtual int run();
 
         /*
         * Print results too terminal
