@@ -1,8 +1,8 @@
 #include "Algorithm.h"
 
-Algorithm::Algorithm(shared_ptr<int> processes, shared_ptr<int> limit, shared_ptr<int> n, string trialNum) 
+Algorithm::Algorithm(shared_ptr<int> processes, shared_ptr<int> limit, shared_ptr<int> n, string trialName) 
 : processes{processes}, limit{limit}, n{n} {
-    this->outName = "Trial " + trialNum + ".txt";
+    this->outName = "Trial " + trialName + ".txt";
     this->complete = false;
 
     outfile.open(this->outName, std::ios_base::app);
