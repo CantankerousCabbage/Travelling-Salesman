@@ -20,7 +20,7 @@ int FastOne::run(int** map){
         for(auto& neighbors : state)
         neighbors = vector<int>((1 << cities.size()) - 1, INT_MAX);
 
-        std::cout << "Starting Genetic..." << std::endl;
+        std::cout << "Starting Dynamic..." << std::endl;
         this->beginTimer();
         Algorithm::shortest = TSP(cities, 0, 1, state);
         this->endTimer();

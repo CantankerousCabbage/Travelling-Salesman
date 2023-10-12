@@ -8,7 +8,7 @@
 #include <string.h>
 #include <cmath>
 
-#define MAXGRAPH 200
+#define MAXGRAPH 200000
 
 using std::vector;
 using std::string;

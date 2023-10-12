@@ -28,7 +28,7 @@ void Algorithm::endTimer(){
 };
 
 void Algorithm::logResults(double executionTime){
-    this->complete = (executionTime <= *limit) ? true : false; 
+    this->complete = (executionTime <= *limit) ? false : true; 
     this->outfile << *(this->n) << " " << executionTime << " " << this->complete << " " << this->shortest << "\n";
     if(complete){
         *processes -= 1;

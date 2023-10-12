@@ -50,29 +50,24 @@ int main(int argc, char** argv) {
             unique_ptr<FastOne> dynamic = std::make_unique<FastOne>(processes, limit,  n, DYNAMIC);
             unique_ptr<FastTwo> greedy = std::make_unique<FastTwo>(processes, limit,  n, GREEDY);
 
-            int** currentGraph = new int*[*n];
+            while(*processes && *n != MAXGRAPH) {
+                int** currentGraph = new int*[*n];
 
-            
+                initGraph(currentGraph, *n);
 
-            initGraph(currentGraph, *n);
+                for(int i = 0; i < *n; i++){
+                for(int j = 0; j < *n; j++){
+                        currentGraph[i][j] = graph[i][j];
+                    } 
+                }
+        
+                brute->run(currentGraph);
+                dynamic->run(currentGraph);
+                greedy->run(currentGraph);
 
-            for(int i = 0; i < *n; i++){
-               for(int j = 0; j < *n; j++){
-                    currentGraph[i][j] = graph[i][j];
-                } 
+                destoyGraph(currentGraph, *n);
+                *n += 1; 
             }
-            
-            
-            brute->run(currentGraph);
-            dynamic->run(currentGraph);
-            greedy->run(currentGraph);
-            // cout << "All Algorithms Completed..." << endl;
-
-            destoyGraph(currentGraph, *n);
-            
-            // while(*processes) {
-            //     //Add algorithms
-            // }
         }
         
         std::cout << "Experiment Complete" << std::endl;

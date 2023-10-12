@@ -98,6 +98,7 @@ int FastTwo::TSP(vector<vector<int>> tsp)
             route[counter] = j + 1;
         }
     }
-    return sum += min;
+    sum += min;
+    return (sum);
  
 }

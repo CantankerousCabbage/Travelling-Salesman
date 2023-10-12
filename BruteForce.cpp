@@ -13,7 +13,7 @@ int BruteForce::run(int** graph){
     if(!Algorithm::complete){
         this->V = *this->n;
         int s = 0;
-
+        std::cout << "Starting BruteForce..." << std::endl;
         this->beginTimer();
         Algorithm::shortest = TSP(graph, s);
         this->endTimer();
