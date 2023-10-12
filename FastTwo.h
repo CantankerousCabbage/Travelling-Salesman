@@ -18,18 +18,13 @@ class FastTwo : public Algorithm {
     /*
     * Calculates average turna around time
     */
-    virtual int run(vector<vector<int>> tsp);
-
-    /*
-    * Calculates average turna around time
-    */
-    void printResults();
+    virtual int run(int** map);
 
     /*
     * -----Greedy Implementation------
     */
 
-    void findMinRoute(vector<vector<int>> tsp);
+    int TSP(vector<vector<int>> tsp);
 
 };
 

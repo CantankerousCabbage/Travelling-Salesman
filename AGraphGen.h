@@ -35,7 +35,7 @@ class AGraphGen {
         /*
         * fetch matrix 
         */
-        int** fetchMatrix(int V);
+        int** fetchMatrix();
 
         void printGraph();
 

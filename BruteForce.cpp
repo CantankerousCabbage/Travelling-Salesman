@@ -1,27 +1,29 @@
 #include "BruteForce.h"
 
 
-BruteForce::BruteForce(shared_ptr<int> processes, shared_ptr<int> limit, shared_ptr<int> n, string trialNum){
+BruteForce::BruteForce(shared_ptr<int> processes, shared_ptr<int> limit, shared_ptr<int> n, string trialNum) : Algorithm( processes, limit,  n, trialNum){
     //Initialise super
-    Algorithm( processes, limit,  n, trialNum);
-    this->V = 0;
+    
+    // this->V = 0;
 }
 BruteForce::~BruteForce(){}
 
-int BruteForce::run(int** graph, int s){
-    this->V = *this->n;
-
-    // int graph[][V] = { { 0, 10, 15, 20 },
-    //                    { 10, 0, 35, 25 },
-    //                    { 15, 35, 0, 30 },
-    //                    { 20, 25, 30, 0 } };
-    // int s = 0;
+int BruteForce::run(int** graph){
     
-    // travllingSalesmanProblem(graph, s);
+    if(!Algorithm::complete){
+        this->V = *this->n;
+        int s = 0;
+
+        this->beginTimer();
+        Algorithm::shortest = TSP(graph, s);
+        this->endTimer();
+        this->printResults();
+    }
+    
     return complete;
 }
 
-int BruteForce::travllingSalesmanProblem(int** graph, int s){
+int BruteForce::TSP(int** graph, int s){
     vector<int> vertex;
     for (int i = 0; i < V; i++){
         if (i != s){
@@ -47,8 +49,7 @@ int BruteForce::travllingSalesmanProblem(int** graph, int s){
         // update minimum
         min_path = min(min_path, current_pathweight);
  
-    } while (
-        next_permutation(vertex.begin(), vertex.end()));
+    } while (next_permutation(vertex.begin(), vertex.end()));
  
     return min_path;
 

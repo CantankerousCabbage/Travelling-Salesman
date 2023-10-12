@@ -13,7 +13,7 @@ Algorithm::~Algorithm(){
 };
 
 void Algorithm::printResults(){
-
+    std::cout << "Run: " << *(this->n) << ", Time:  " << time << "sec,  " << this->complete << std::endl;
 };
 
 void Algorithm::beginTimer(){
@@ -22,13 +22,18 @@ void Algorithm::beginTimer(){
 
 void Algorithm::endTimer(){
     std::chrono::duration<double> timeSeconds = (high_resolution_clock::now() - this->initial);
-    double executionTime = (double)timeSeconds.count(); 
+    double executionTime = (double)timeSeconds.count();
+    this->time = executionTime;
     logResults(executionTime);
 };
 
 void Algorithm::logResults(double executionTime){
     this->complete = (executionTime <= *limit) ? true : false; 
-    this->outfile << *(this->n) << " " << executionTime << " " << this->complete << "\n";
+    this->outfile << *(this->n) << " " << executionTime << " " << this->complete << " " << this->shortest << "\n";
+    if(complete){
+        *processes -= 1;
+        std::cout << "COMPLETE" << std::endl;
+    }
 };
 
 

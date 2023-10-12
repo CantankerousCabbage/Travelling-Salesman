@@ -3,11 +3,13 @@
 
 
 //Solution TSP using Genetic Algorithm. From:
-//https://www.geeksforgeeks.org/traveling-salesman-problem-using-genetic-algorithm/
+//https://gist.github.com/jgcoded/d7ecba7aa3e210419471
 
 #include "Algorithm.h"
 
 #include <cmath>
+#include <vector>
+#include <climits>
 
 using std::cout;
 using std::endl;
@@ -42,56 +44,11 @@ class FastOne : public Algorithm {
     /*
     * Calculates average turna around time
     */
-    virtual int run( shared_ptr<int> n);
+    virtual int run(int** map);
 
-    /*
-    * Calculates average turna around time
-    */
-    void printResults();
-
-    /*
-    * ----Genetic Library Algorithms---
-    */
-
-   /*
-    *  Structure of a GNOME
-    *   string defines the path traversed
-    *   by the salesman while the fitness value
-    *   of the path is stored in an integer
-    */
-    int rand_num(int start, int end);
-
-    bool repeat(string s, char ch);
-
-    /*
-    * Function to return a mutated GNOME
-    * Mutated GNOME is a string
-    * with a random interchange
-    * of two genes to create variation in species
-    */
-    string mutatedGene(string gnome);
-
-    /*
-    * Function to return a valid GNOME string
-    * required to create the population
-    */
-    string create_gnome();
-
-    /*Function to return the fitness value of a gnome.
-    *The fitness value is the path length
-    *of the path represented by the GNOME.
-    */
-    int cal_fitness(string gnome, int** map);
-
-    // Function to return the updated value
-    // of the cooling element.
-    int cooldown(int temp);
-
-    // Comparator for GNOME struct.
-    bool lessthan(struct individual t1, struct individual t2);
 
     // Utility function for TSP problem.
-    void TSPUtil(int** map);
+    int TSP(const vector<vector<int>>& cities, int pos, int visited, vector<vector<int>>& state);
 
     private:
         unsigned V;

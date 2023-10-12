@@ -55,10 +55,12 @@ class Algorithm {
         shared_ptr<int> processes;
         shared_ptr<int> limit;
         shared_ptr<int> n;
+        int shortest;
         
     private: 
         
         std::chrono::time_point<high_resolution_clock> initial;
+        double time;
         std::ofstream outfile;
         string outName;
         // vector<string> archive;

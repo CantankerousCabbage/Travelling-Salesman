@@ -1,28 +1,41 @@
 #include "FastTwo.h"
+#include "AGraphGen.h"
+#include "Algorithm.h"
 
 
-FastTwo::FastTwo(shared_ptr<int> processes, shared_ptr<int> limit, shared_ptr<int> n, string trialName){
-    Algorithm(processes,  limit, n, trialName);
+FastTwo::FastTwo(shared_ptr<int> processes, shared_ptr<int> limit, shared_ptr<int> n, string trialName) : Algorithm(processes,  limit, n, trialName) {
+    
 }
 FastTwo::~FastTwo(){};
 
 /*
 * Calculates average turna around time
 */
-int FastTwo::run(vector<vector<int>> tsp){
+int FastTwo::run(int** map){
+    
+    if(!Algorithm::complete){
+        std::cout << "Starting Greedy..." << std::endl;
+         vector<vector<int>> tsp(*this->n, vector<int>(*this->n));
 
-    // vector<vector<int>> tsp = { { -1, 10, 15, 20 },
-    //                              { 10, -1, 35, 25 },
-    //                              { 15, 35, -1, 30 },
-    //                              { 20, 25, 30, -1 } };
-
-    findMinRoute(tsp);
+        for(int i = 0; i < *this->n; i++){
+            for(int j = 0; j < *this->n; j++){
+                tsp[i][j] = (map[i][j] == 0) ? -1 : map[i][j];
+            }
+        }
+    
+        this->beginTimer();
+        Algorithm::shortest = TSP(tsp);
+        this->endTimer();
+        this->printResults();
+        
+    }
+    
     return complete;
 };
 
 // Function to find the minimum
 // cost path for all the paths
-void FastTwo::findMinRoute(vector<vector<int> > tsp)
+int FastTwo::TSP(vector<vector<int>> tsp)
 {
     int sum = 0;
     unsigned counter = 0;
@@ -85,10 +98,6 @@ void FastTwo::findMinRoute(vector<vector<int> > tsp)
             route[counter] = j + 1;
         }
     }
-    sum += min;
+    return sum += min;
  
-    // Started from the node where
-    // we finished as well.
-    cout << ("Minimum Cost is : ");
-    cout << (sum);
 }

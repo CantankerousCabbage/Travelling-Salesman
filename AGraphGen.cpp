@@ -27,7 +27,7 @@ bool AGraphGen::initAdjacency(){
     vector<string> tokens;
     bool success = false;
 
-    cout << "Begin Reading Data" << endl;
+    
     if(infile.good()){
         try
         {
@@ -49,6 +49,7 @@ bool AGraphGen::initAdjacency(){
                     this->graph[i][j] = getDistance(x1, x2, y1, y2);
                 };
             } 
+            cout << "Adjacency Graph Populated..." << endl;
             success = true;  
         }
         catch(const std::exception& e)
@@ -67,7 +68,7 @@ int AGraphGen::getDistance(int x1,int x2, int y1, int y2){
         sqrt( pow(x2- x1, 2) + pow(y2- y1, 2) );  
 }
 
-int** AGraphGen::fetchMatrix(int V){
+int** AGraphGen::fetchMatrix(){
     return graph;
 };
 

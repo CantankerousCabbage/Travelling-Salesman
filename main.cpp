@@ -18,11 +18,13 @@ using std::map;
 #define ALG_COUNT 3
 
 #define BRUTE "brute"
-#define GENETIC "genetic"
+#define DYNAMIC "dynamic"
 #define GREEDY "greedy"
 
 bool parseCommand(int argc, char** argv, shared_ptr<int> n, string& datafile);
 void cmdError();
+void initGraph(int** graph, int n);
+void destoyGraph(int** graph, int n);
 
 int main(int argc, char** argv) {
 
@@ -37,19 +39,40 @@ int main(int argc, char** argv) {
     if(success){
         //Initialise adjacency graph
         success = graphGenerator->initAdjacency();
-
+        int** graph = graphGenerator->fetchMatrix();
+        
         if(success){
-            graphGenerator->printGraph();
-            shared_ptr<int> n = std::make_shared<int>(0);
+            // graphGenerator->printGraph();
+            shared_ptr<int> n = std::make_shared<int>(5);
             
             //Initialise Algorithms
             unique_ptr<BruteForce> brute = std::make_unique<BruteForce>( processes, limit,  n, BRUTE);
-            unique_ptr<FastOne> genetic = std::make_unique<FastOne>(processes, limit,  n, GENETIC);
+            unique_ptr<FastOne> dynamic = std::make_unique<FastOne>(processes, limit,  n, DYNAMIC);
             unique_ptr<FastTwo> greedy = std::make_unique<FastTwo>(processes, limit,  n, GREEDY);
 
-            while(*processes) {
-                //Add algorithms
+            int** currentGraph = new int*[*n];
+
+            
+
+            initGraph(currentGraph, *n);
+
+            for(int i = 0; i < *n; i++){
+               for(int j = 0; j < *n; j++){
+                    currentGraph[i][j] = graph[i][j];
+                } 
             }
+            
+            
+            brute->run(currentGraph);
+            dynamic->run(currentGraph);
+            greedy->run(currentGraph);
+            // cout << "All Algorithms Completed..." << endl;
+
+            destoyGraph(currentGraph, *n);
+            
+            // while(*processes) {
+            //     //Add algorithms
+            // }
         }
         
         std::cout << "Experiment Complete" << std::endl;
@@ -58,6 +81,21 @@ int main(int argc, char** argv) {
     }
 
     return EXIT_SUCCESS;
+}
+
+void initGraph(int** graph, int n){
+
+    for (int i = 0; i < n; i++){
+        graph[i] = new int[n];
+    }
+    cout << "Graph For Run Initialised..." << endl;
+}
+
+void destoyGraph(int** graph, int n){
+    for (int i = 0; i < n; i++){
+        delete[] graph[i];
+    }
+    delete[] graph;
 }
 
 bool parseCommand(int argc, char** argv, shared_ptr<int> limit, string& datafile){
