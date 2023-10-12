@@ -1,17 +1,20 @@
 #include "FastOne.h"
 
-FastOne::FastOne(shared_ptr<int> processes, shared_ptr<int> limit, shared_ptr<int> n, string trialNum){
-    Algorithm( processes, limit,  n, trialNum);
+FastOne::FastOne(shared_ptr<int> processes, shared_ptr<int> limit, shared_ptr<int> n,  string trialName){
+    Algorithm( processes, limit, n, trialName);
 }
 FastOne::~FastOne(){}
 
-int FastOne::run(int map[V][V]){
-    int map[V][V] = { { 0, 2, INT_MAX, 12, 5 },
-                    { 2, 0, 4, 8, INT_MAX },
-                    { INT_MAX, 4, 0, 3, 3 },
-                    { 12, 8, 3, 0, 10 },
-                    { 5, INT_MAX, 3, 10, 0 } };
-   TSPUtil(map);
+int FastOne::run( shared_ptr<int> n){
+    // this->V = *n;
+    // int map[V][V] = { { 0, 2, INT_MAX, 12, 5 },
+    //                 { 2, 0, 4, 8, INT_MAX },
+    //                 { INT_MAX, 4, 0, 3, 3 },
+    //                 { 12, 8, 3, 0, 10 },
+    //                 { 5, INT_MAX, 3, 10, 0 } };
+//     int** map;
+//    TSPUtil(map);
+   return complete;
 }
 
 int FastOne::rand_num(int start, int end)
@@ -23,7 +26,7 @@ return rnum;
  
 bool FastOne::repeat(string s, char ch)
 {
-    for (int i = 0; i < s.size(); i++) {
+    for (unsigned i = 0; i < s.size(); i++) {
         if (s[i] == ch)
             return true;
     }
@@ -60,15 +63,15 @@ string FastOne::create_gnome()
     return gnome;
 }
  
-int FastOne::cal_fitness(string gnome)
+int FastOne::cal_fitness(string gnome, int** map)
 {
-    int map[V][V] = { { 0, 2, INT_MAX, 12, 5 },
-                    { 2, 0, 4, 8, INT_MAX },
-                    { INT_MAX, 4, 0, 3, 3 },
-                    { 12, 8, 3, 0, 10 },
-                    { 5, INT_MAX, 3, 10, 0 } };
+    // int map[V][V] = { { 0, 2, INT_MAX, 12, 5 },
+    //                 { 2, 0, 4, 8, INT_MAX },
+    //                 { INT_MAX, 4, 0, 3, 3 },
+    //                 { 12, 8, 3, 0, 10 },
+    //                 { 5, INT_MAX, 3, 10, 0 } };
     int f = 0;
-    for (int i = 0; i < gnome.size() - 1; i++) {
+    for (unsigned i = 0; i < gnome.size() - 1; i++) {
         if (map[gnome[i] - 48][gnome[i + 1] - 48] == INT_MAX)
             return INT_MAX;
         f += map[gnome[i] - 48][gnome[i + 1] - 48];
@@ -87,7 +90,13 @@ bool FastOne::lessthan(struct individual t1,
     return t1.fitness < t2.fitness;
 }
  
-void FastOne::TSPUtil(int map[V][V])
+//  bool FastOne::lessthan(struct individual t1,
+//             struct individual t2)
+// {
+//     return t1.fitness < t2.fitness;
+// }
+
+void FastOne::TSPUtil(int** map)
 {
     // Generation Number
     int gen = 1;
@@ -100,7 +109,7 @@ void FastOne::TSPUtil(int map[V][V])
     // Populating the GNOME pool.
     for (int i = 0; i < POP_SIZE; i++) {
         temp.gnome = create_gnome();
-        temp.fitness = cal_fitness(temp.gnome);
+        temp.fitness = cal_fitness(temp.gnome, map);
         population.push_back(temp);
     }
  
@@ -111,9 +120,13 @@ void FastOne::TSPUtil(int map[V][V])
             << population[i].fitness << endl;
     cout << "\n";
  
-    bool found = false;
+    // bool found = false;
     int temperature = 10000;
- 
+    
+    auto lessthan = [](struct individual t1,
+            struct individual t2){
+           return t1.fitness < t2.fitness;     
+    };
     // Iteration to perform
     // population crossing and gene mutation.
     while (temperature > 1000 && gen <= gen_thres) {
@@ -128,7 +141,7 @@ void FastOne::TSPUtil(int map[V][V])
                 string new_g = mutatedGene(p1.gnome);
                 struct individual new_gnome;
                 new_gnome.gnome = new_g;
-                new_gnome.fitness = cal_fitness(new_gnome.gnome);
+                new_gnome.fitness = cal_fitness(new_gnome.gnome, map);
  
                 if (new_gnome.fitness <= population[i].fitness) {
                     new_population.push_back(new_gnome);

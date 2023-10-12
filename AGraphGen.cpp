@@ -6,6 +6,7 @@ AGraphGen::AGraphGen(string& datafile) : source{datafile} {
     for (int i = 0; i < MAXGRAPH; i++){
         graph[i] = new int[MAXGRAPH];
     }
+    cout << "Graph Initialised" << endl;
 };
 AGraphGen::~AGraphGen(){
     
@@ -17,33 +18,48 @@ AGraphGen::~AGraphGen(){
     }
 };
 
-void AGraphGen::initAdjacency(){
+bool AGraphGen::initAdjacency(){
     infile.open(this->source);
 
     string line;
     string delimeter = " ";
-    vector<vector <int>> coords;
+    vector<vector <int>> coords(MAXGRAPH, vector<int>(2));
     vector<string> tokens;
+    bool success = false;
 
-    //Get Vectors from file
-    for(unsigned i = 0; i < MAXGRAPH; i++){
-        std::getline(infile, line);
-        splitString(line, tokens, delimeter);
-        coords[i][0] = stoi(tokens[1]);
-        coords[i][1] = stoi(tokens[2]);
+    cout << "Begin Reading Data" << endl;
+    if(infile.good()){
+        try
+        {
+            //Get Vectors from file
+            for(unsigned i = 0; i < MAXGRAPH; i++){
+                std::getline(infile, line);
+                splitString(line, tokens, delimeter);
+                coords[i][0] = stoi(tokens[1]);
+                coords[i][1] = stoi(tokens[2]);
+            }
+            
+            //Caclulate adjacency graph
+            for(unsigned i = 0; i < MAXGRAPH; i++){
+                int x1 = coords[i][0];
+                int y1 = coords[i][1];
+                for(unsigned j = 0; j < MAXGRAPH; j++){
+                    int x2 = coords[j][0];
+                    int y2 = coords[j][1];
+                    this->graph[i][j] = getDistance(x1, x2, y1, y2);
+                };
+            } 
+            success = true;  
+        }
+        catch(const std::exception& e)
+        {
+           std::cout << "Error Generating Graph" << std::endl;
+        }
+    
+    } else {
+       std::cout << "Data file missing" << std::endl; 
     }
-
-    //Caclulate adjacency graph
-    for(unsigned i = 0; i < MAXGRAPH; i++){
-        int x1 = coords[i][0];
-        int y1 = coords[i][1];
-        for(unsigned j = 0; j < MAXGRAPH; i++){
-            int x2 = coords[j][0];
-            int y2 = coords[j][1];
-
-            this->graph[i][j] = getDistance(x1, x2, y1, y2);
-        };
-    }
+    return success;
 };
 
 int AGraphGen::getDistance(int x1,int x2, int y1, int y2){

@@ -4,10 +4,10 @@ all: ts
 
 clean: ts
 
-clean_ts:
+clean:
 	rm -rf ppd *.o
 
-ts: main.o VectorGen.o BruteForce.o FastOne.o FastTwo.o
+ts: main.o Algorithm.o BruteForce.o FastOne.o FastTwo.o AGraphGen.o
 	g++ -Wall -Werror -std=c++20 -g -O -o $@ $^	
 
 %.o: %.cpp

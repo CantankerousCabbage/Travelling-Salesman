@@ -30,7 +30,7 @@ class AGraphGen {
         /*
         * Build adjacency matrix from vectors
         */
-        void initAdjacency();
+        bool initAdjacency();
 
         /*
         * fetch matrix 

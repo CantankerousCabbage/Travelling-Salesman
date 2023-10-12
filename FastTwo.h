@@ -12,13 +12,13 @@ using std::endl;
 class FastTwo : public Algorithm {
     public:
 
-    FastTwo(shared_ptr<int> processes, shared_ptr<int> limit, shared_ptr<int> n, string trialNum);
+    FastTwo(shared_ptr<int> processes, shared_ptr<int> limit, shared_ptr<int> n, string trialName);
     ~FastTwo();
 
     /*
     * Calculates average turna around time
     */
-    virtual int run();
+    virtual int run(vector<vector<int>> tsp);
 
     /*
     * Calculates average turna around time

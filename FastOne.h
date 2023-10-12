@@ -15,7 +15,7 @@ using std::pow;
 
 //------------------
 // Number of cities in TSP
-#define V 5
+// #define V 5
  
 // Names of the cities
 #define GENES ABCDE
@@ -42,7 +42,7 @@ class FastOne : public Algorithm {
     /*
     * Calculates average turna around time
     */
-    virtual int run(int map[V][V]);
+    virtual int run( shared_ptr<int> n);
 
     /*
     * Calculates average turna around time
@@ -81,7 +81,7 @@ class FastOne : public Algorithm {
     *The fitness value is the path length
     *of the path represented by the GNOME.
     */
-    int cal_fitness(string gnome);
+    int cal_fitness(string gnome, int** map);
 
     // Function to return the updated value
     // of the cooling element.
@@ -91,7 +91,10 @@ class FastOne : public Algorithm {
     bool lessthan(struct individual t1, struct individual t2);
 
     // Utility function for TSP problem.
-    void TSPUtil(int map[V][V]);
+    void TSPUtil(int** map);
+
+    private:
+        unsigned V;
 
 
 };

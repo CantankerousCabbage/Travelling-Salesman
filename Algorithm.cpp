@@ -1,5 +1,6 @@
 #include "Algorithm.h"
 
+Algorithm::Algorithm(){};
 Algorithm::Algorithm(shared_ptr<int> processes, shared_ptr<int> limit, shared_ptr<int> n, string trialName) 
 : processes{processes}, limit{limit}, n{n} {
     this->outName = "Trial " + trialName + ".txt";
@@ -8,7 +9,8 @@ Algorithm::Algorithm(shared_ptr<int> processes, shared_ptr<int> limit, shared_pt
     outfile.open(this->outName, std::ios_base::app);
 }
 
-Algorithm::~Algorithm(){};
+Algorithm::~Algorithm(){
+};
 
 void Algorithm::printResults(){
 
@@ -30,4 +32,6 @@ void Algorithm::logResults(double executionTime){
 };
 
 
-int Algorithm::run(){};
+int Algorithm::run(){
+    return complete;
+};

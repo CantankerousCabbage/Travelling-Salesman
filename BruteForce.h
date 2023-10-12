@@ -20,14 +20,17 @@ class BruteForce : public Algorithm {
     /*
     * Calculates average turna around time
     */
-    virtual int run(int graph[][V], int s);
+    virtual int run(int** graph, int s);
 
     /*
     * Calculates average turna around time
     */
     void printResults();
 
-    int travllingSalesmanProblem(int graph[][V], int s);
+    int travllingSalesmanProblem(int** graph, int s);
+
+    private:
+        int V;
 
 
 };

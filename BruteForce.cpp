@@ -4,10 +4,12 @@
 BruteForce::BruteForce(shared_ptr<int> processes, shared_ptr<int> limit, shared_ptr<int> n, string trialNum){
     //Initialise super
     Algorithm( processes, limit,  n, trialNum);
+    this->V = 0;
 }
 BruteForce::~BruteForce(){}
 
-int BruteForce::run(int graph[][V], int s){
+int BruteForce::run(int** graph, int s){
+    this->V = *this->n;
 
     // int graph[][V] = { { 0, 10, 15, 20 },
     //                    { 10, 0, 35, 25 },
@@ -16,9 +18,10 @@ int BruteForce::run(int graph[][V], int s){
     // int s = 0;
     
     // travllingSalesmanProblem(graph, s);
+    return complete;
 }
 
-int BruteForce::travllingSalesmanProblem(int graph[][V], int s){
+int BruteForce::travllingSalesmanProblem(int** graph, int s){
     vector<int> vertex;
     for (int i = 0; i < V; i++){
         if (i != s){
@@ -35,7 +38,7 @@ int BruteForce::travllingSalesmanProblem(int graph[][V], int s){
  
         // compute current path weight
         int k = s;
-        for (int i = 0; i < vertex.size(); i++) {
+        for (unsigned i = 0; i < vertex.size(); i++) {
             current_pathweight += graph[k][vertex[i]];
             k = vertex[i];
         }

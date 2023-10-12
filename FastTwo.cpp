@@ -1,22 +1,23 @@
 #include "FastTwo.h"
 
 
-FastTwo::FastTwo(shared_ptr<int> processes, shared_ptr<int> limit, shared_ptr<int> n, string trialNum){
-    Algorithm(processes,  limit,  n,  trialNum);
+FastTwo::FastTwo(shared_ptr<int> processes, shared_ptr<int> limit, shared_ptr<int> n, string trialName){
+    Algorithm(processes,  limit, n, trialName);
 }
 FastTwo::~FastTwo(){};
 
 /*
 * Calculates average turna around time
 */
-int FastTwo::run(){
+int FastTwo::run(vector<vector<int>> tsp){
 
-    vector<vector<int>> tsp = { { -1, 10, 15, 20 },
-                                 { 10, -1, 35, 25 },
-                                 { 15, 35, -1, 30 },
-                                 { 20, 25, 30, -1 } };
+    // vector<vector<int>> tsp = { { -1, 10, 15, 20 },
+    //                              { 10, -1, 35, 25 },
+    //                              { 15, 35, -1, 30 },
+    //                              { 20, 25, 30, -1 } };
 
     findMinRoute(tsp);
+    return complete;
 };
 
 // Function to find the minimum
@@ -24,8 +25,8 @@ int FastTwo::run(){
 void FastTwo::findMinRoute(vector<vector<int> > tsp)
 {
     int sum = 0;
-    int counter = 0;
-    int j = 0, i = 0;
+    unsigned counter = 0;
+    unsigned j = 0, i = 0;
     int min = INT_MAX;
     map<int, int> visitedRouteList;
  
