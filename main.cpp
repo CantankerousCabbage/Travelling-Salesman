@@ -37,22 +37,13 @@ int main(int argc, char** argv) {
     
 
     if(success){
-        //Initialise adjacency graph
+       
         success = graphGenerator->initAdjacency();
-        // int** graph = graphGenerator->fetchMatrix();
+        
         std::shared_ptr<vector<vector<int>>> graph = graphGenerator->fetchMatrix();
-        // vector<vector<int>> tsp(MAXGRAPH, vector<int>(MAXGRAPH));
-
-        // for(int i = 0; i < MAXGRAPH; i++){
-        //     for(int j = 0; j < MAXGRAPH; j++){
-        //         int num = graph[i][j];
-        //         tsp[i][j] = (num == 0) ? -1 : num;
-        //     }
-        // }
-
         
         if(success){
-            graphGenerator->printGraph();
+            // graphGenerator->printGraph();
             shared_ptr<int> n = std::make_shared<int>(5);
             
             //Initialise Algorithms
@@ -60,15 +51,15 @@ int main(int argc, char** argv) {
             unique_ptr<FastOne> dynamic = std::make_unique<FastOne>(processes, limit,  n, DYNAMIC);
             unique_ptr<FastTwo> greedy = std::make_unique<FastTwo>(processes, limit,  n, GREEDY);
 
-            // while(*processes && *n != MAXGRAPH) {
-                brute->run(graph);
-                greedy->run(graph);
+            while(*processes && *n != MAXGRAPH) {
+                // brute->run(graph);
+                // greedy->run(graph);
                 dynamic->run(graph);
 
                 // destoyGraph(currentGraph, *n);
                 *n += 1; 
                  std::cout << "n: " << *n << std::endl;
-            // }
+            }
         }
         
         std::cout << "Experiment Complete" << std::endl;

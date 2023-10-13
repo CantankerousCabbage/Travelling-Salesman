@@ -25,6 +25,7 @@ int BruteForce::run(std::shared_ptr<vector<vector<int>>> graph){
 }
 
 int BruteForce::TSP(std::shared_ptr<vector<vector<int>>> graph, int s){
+
     vector<int> vertex;
     for (int i = 0; i < *n; i++){
         if (i != s){
@@ -42,18 +43,26 @@ int BruteForce::TSP(std::shared_ptr<vector<vector<int>>> graph, int s){
  
         // compute current path weight
         int k = s;
+        // std::cout << "here2" << std::endl;
+        // std::cout << "here1" << std::endl;
+        // std::cout << "n" << *n << std::endl;
+        // std::cout << "vertext" << vertex.size() << std::endl;
         for (unsigned i = 0; i < vertex.size(); i++) {
-            
+            // std::cout << "i: " << i << std::endl;
+            // std::cout << "s:" << s << std::endl;
             current_pathweight += (*graph)[k][vertex[i]];
             k = vertex[i];
+            // std::cout << "k:" << k << std::endl;
         }
+        // std::cout << "done" << k << s << std::endl;
+        // std::cout << "item" << (*graph)[k][s] << std::endl;
         current_pathweight += (*graph)[k][s];
         
         // update minimum
         min_path = min(min_path, current_pathweight);
  
     } while (next_permutation(vertex.begin(), vertex.end()));
-    
+    std::cout << "here3" << std::endl;
     
     return min_path;
 

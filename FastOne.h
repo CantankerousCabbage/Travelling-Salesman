@@ -2,7 +2,7 @@
 #define FASTONE
 
 
-//Solution TSP using Genetic Algorithm. From:
+//Solution TSP using Dynamic Algorithm. From:
 //https://gist.github.com/jgcoded/d7ecba7aa3e210419471
 
 #include "Algorithm.h"
@@ -14,21 +14,6 @@
 using std::cout;
 using std::endl;
 using std::pow;
-
-//------------------
-// Number of cities in TSP
-// #define V 5
- 
-// Names of the cities
-#define GENES ABCDE
- 
-// Starting Node Value
-#define START 0
- 
-// Initial population size for the algorithm
-
-#define POP_SIZE 10
-//------------------
 
 struct individual {
     string gnome;
@@ -48,7 +33,7 @@ class FastOne : public Algorithm {
 
 
     // Utility function for TSP problem.
-    int TSP(const vector<vector<int>>& cities, int pos, int visited, vector<vector<int>>& state);
+    int TSP(const vector<vector<int>>* cities, int pos, int visited, vector<vector<int>>& state);
 
     private:
         unsigned V;

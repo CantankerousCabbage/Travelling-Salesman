@@ -9,7 +9,7 @@
 #include <cmath>
 #include <memory>
 
-#define MAXGRAPH 5
+#define MAXGRAPH 30
 
 using std::vector;
 using std::string;
