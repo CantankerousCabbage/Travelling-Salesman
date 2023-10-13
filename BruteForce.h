@@ -20,13 +20,9 @@ class BruteForce : public Algorithm {
     /*
     * Calculates average turna around time
     */
-    virtual int run(int** graph);
+    virtual int run(std::shared_ptr<vector<vector<int>>> graph);
 
-    int TSP(int** graph, int s);
-
-    private:
-        int V;
-
+    int TSP(std::shared_ptr<vector<vector<int>>> graph, int s);
 
 };
 

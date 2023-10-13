@@ -15,6 +15,7 @@ using std::vector;
 using std::string;
 using std::unique_ptr;
 using std::shared_ptr;
+using std::make_shared;
 using std::chrono::system_clock;
 using std::chrono::high_resolution_clock;
 
@@ -55,7 +56,7 @@ class Algorithm {
         shared_ptr<int> processes;
         shared_ptr<int> limit;
         shared_ptr<int> n;
-        int shortest;
+        double shortest;
         
     private: 
         

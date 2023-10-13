@@ -1,21 +1,22 @@
 #include "AGraphGen.h"
 
-AGraphGen::AGraphGen(string& datafile) : source{datafile} {
-    graph = new int*[MAXGRAPH];
+#include <memory>
 
-    for (int i = 0; i < MAXGRAPH; i++){
-        graph[i] = new int[MAXGRAPH];
-    }
-    cout << "Graph Initialised" << endl;
+AGraphGen::AGraphGen(string& datafile) : source{datafile} {
+    // graph = new int*[MAXGRAPH];
+
+    // for (int i = 0; i < MAXGRAPH; i++){
+    //     graph[i] = new int[MAXGRAPH];
+    // }
+    g = vector(MAXGRAPH, vector<int>(MAXGRAPH));
+    graph = std::make_shared<std::vector<std::vector<int>>>(g);
+    
 };
+
 AGraphGen::~AGraphGen(){
     
-    if (graph != nullptr) {
-        for (int i = 0; i < MAXGRAPH; i++) {
-            delete[] graph[i]; 
-        }
-        delete[] graph;
-    }
+
+ 
 };
 
 bool AGraphGen::initAdjacency(){
@@ -46,7 +47,8 @@ bool AGraphGen::initAdjacency(){
                 for(unsigned j = 0; j < MAXGRAPH; j++){
                     int x2 = coords[j][0];
                     int y2 = coords[j][1];
-                    this->graph[i][j] = getDistance(x1, x2, y1, y2);
+                    // this->graph[i][j] = getDistance(x1, x2, y1, y2);
+                    (*graph)[i][j] = getDistance(x1, x2, y1, y2);
                 };
             } 
             cout << "Adjacency Graph Populated..." << endl;
@@ -68,9 +70,13 @@ int AGraphGen::getDistance(int x1,int x2, int y1, int y2){
         sqrt( pow(x2- x1, 2) + pow(y2- y1, 2) );  
 }
 
-int** AGraphGen::fetchMatrix(){
+// int** AGraphGen::fetchMatrix(){
+//     return graph;
+// };
+
+std::shared_ptr<vector<vector<int>>> AGraphGen::fetchMatrix(){
     return graph;
-};
+} 
 
 void AGraphGen::splitString(string s, vector<string>& tokens, string delimeter)
 {
@@ -92,7 +98,7 @@ void AGraphGen::printGraph(){
     for(unsigned i = 0; i < MAXGRAPH; i++){
         cout << "{";
         for(unsigned j = 0; j < MAXGRAPH; j++){
-            cout << " " << this->graph[i][j] << " ";
+            cout << " " << (*this->graph)[i][j] << " ";
         }
        cout << "}\n"; 
     }

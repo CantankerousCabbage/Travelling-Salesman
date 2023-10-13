@@ -7,13 +7,15 @@
 #include <iostream>
 #include <string.h>
 #include <cmath>
+#include <memory>
 
-#define MAXGRAPH 200000
+#define MAXGRAPH 5
 
 using std::vector;
 using std::string;
 using std::cout;
 using std::endl;
+
 
 class AGraphGen {
     public:
@@ -35,7 +37,8 @@ class AGraphGen {
         /*
         * fetch matrix 
         */
-        int** fetchMatrix();
+        // int** fetchMatrix();
+        std::shared_ptr<vector<vector<int>>> fetchMatrix();
 
         void printGraph();
 
@@ -44,7 +47,9 @@ class AGraphGen {
     private:
         string source;
         std::ifstream infile;
-        int** graph;
+        // int** graph;
+        vector<vector<int>> g;
+        std::shared_ptr<vector<vector<int>>> graph;
 
 };
 

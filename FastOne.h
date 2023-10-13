@@ -44,7 +44,7 @@ class FastOne : public Algorithm {
     /*
     * Calculates average turna around time
     */
-    virtual int run(int** map);
+    virtual int run(std::shared_ptr<vector<vector<int>>> map);
 
 
     // Utility function for TSP problem.

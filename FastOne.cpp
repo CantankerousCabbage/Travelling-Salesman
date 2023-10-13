@@ -4,7 +4,7 @@
 FastOne::FastOne(shared_ptr<int> processes, shared_ptr<int> limit, shared_ptr<int> n,  string trialName) : Algorithm( processes, limit, n, trialName){}
 FastOne::~FastOne(){}
 
-int FastOne::run(int** map){
+int FastOne::run(std::shared_ptr<vector<vector<int>>> map){
     
     if(!Algorithm::complete){
 
@@ -12,7 +12,7 @@ int FastOne::run(int** map){
 
         for(int i = 0; i < *this->n; i++){
             for(int j = 0; j < *this->n; j++){
-                cities[i][j] = (map[i][j] == 0) ? -1 : map[i][j];
+                cities[i][j] = ((*map)[i][j] == 0) ? -1 : (*map)[i][j];
             }
         }
 

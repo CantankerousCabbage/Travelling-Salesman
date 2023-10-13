@@ -18,13 +18,16 @@ class FastTwo : public Algorithm {
     /*
     * Calculates average turna around time
     */
-    virtual int run(int** map);
-
+    // virtual int run(int** graph);
+    virtual int run(std::shared_ptr<vector<vector<int>>> graph);
+    
+    
     /*
     * -----Greedy Implementation------
     */
 
-    int TSP(vector<vector<int>> tsp);
+    // int TSP(int** tsp);
+    int TSP(std::shared_ptr<vector<vector<int>>> tsp);
 
 };
 
